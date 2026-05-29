@@ -1,0 +1,38 @@
+{
+  "name": "hubitat-client",
+  "version": "0.1.0",
+  "description": "Zero-dependency Node client for the Hubitat Elevation local hub API",
+  "type": "module",
+  "main": "hubitat.mjs",
+  "exports": "./hubitat.mjs",
+  "bin": {
+    "hubitat": "./cli.mjs"
+  },
+  "files": [
+    "constants.mjs",
+    "http.mjs",
+    "hubitat.mjs",
+    "cli.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "hubitat",
+    "home-automation",
+    "smart-home",
+    "iot",
+    "zwave",
+    "zigbee",
+    "hue",
+    "ecobee"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdowin/hubitat-client.git"
+  },
+  "license": "MIT",
+  "author": "Chris Dowin"
+}
