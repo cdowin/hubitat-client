@@ -23,7 +23,7 @@ const argv = process.argv.slice(2);
 const yes = argv.includes("--yes");
 const args = argv.filter(a => a !== "--yes");
 const [cmd, ...rest] = args;
-const hub = new Hubitat(process.env.HUBITAT_URL);
+const hub = new Hubitat(); // honors HUBITAT_URL, else http://hubitat.local
 
 const out = v => console.log(typeof v === "string" ? v : JSON.stringify(v, null, 2));
 const WRITES = new Set(["on", "off", "level", "cmd", "setmode"]);

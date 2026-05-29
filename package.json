@@ -8,6 +8,9 @@
   "bin": {
     "hubitat": "./cli.mjs"
   },
+  "scripts": {
+    "test": "node --test"
+  },
   "files": [
     "constants.mjs",
     "http.mjs",

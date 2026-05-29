@@ -17,8 +17,13 @@ import {
 const argTypeFor = (val) => (typeof val === "number" ? ARG_TYPE.NUMBER : ARG_TYPE.STRING);
 
 export class Hubitat {
-  constructor(baseUrl = DEFAULT_BASE_URL) {
-    this.http = new HttpClient(baseUrl);
+  /**
+   * @param {string}     baseUrl  hub URL. Resolution order: explicit arg >
+   *                              HUBITAT_URL env var > DEFAULT_BASE_URL.
+   * @param {HttpClient} http     injectable transport (override for testing).
+   */
+  constructor(baseUrl = process.env.HUBITAT_URL || DEFAULT_BASE_URL, http = new HttpClient(baseUrl)) {
+    this.http = http;
   }
 
   // ---------------------------------------------------------------- reads ---

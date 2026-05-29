@@ -11,18 +11,20 @@ function parseBody(text) {
 }
 
 export class HttpClient {
-  constructor(baseUrl) {
+  // `fetchImpl` is injectable so the transport can be tested without a network.
+  constructor(baseUrl, { fetchImpl = fetch } = {}) {
     this.base = baseUrl.replace(/\/$/, "");
+    this.fetch = fetchImpl;
   }
 
   async getJson(path) {
-    const res = await fetch(this.base + path, { signal: AbortSignal.timeout(TIMEOUT_MS.GET) });
+    const res = await this.fetch(this.base + path, { signal: AbortSignal.timeout(TIMEOUT_MS.GET) });
     if (!res.ok) throw new Error(`GET ${path} -> HTTP ${res.status}`);
     return parseBody(await res.text());
   }
 
   async postForm(path, params) {
-    const res = await fetch(this.base + path, {
+    const res = await this.fetch(this.base + path, {
       method: HTTP_METHOD.POST,
       headers: { [HEADER.CONTENT_TYPE]: CONTENT_TYPE_FORM, [HEADER.REQUESTED_WITH]: XHR },
       body: new URLSearchParams(params),

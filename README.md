@@ -22,14 +22,19 @@ cd hubitat-client
 
 No `npm install` needed — there are no dependencies.
 
-## Point it at your hub
+## Configuration
 
-Hubitat hubs advertise as `hubitat.local`, which is the default. If that doesn't
-resolve on your network, set the hub's IP:
+The hub URL is resolved in this order:
+
+1. Explicit constructor argument — `new Hubitat("http://192.168.1.50")`
+2. `HUBITAT_URL` environment variable (honored by both the CLI and the library)
+3. `http://hubitat.local` — works on most networks via the hub's mDNS name
 
 ```bash
-export HUBITAT_URL=http://192.168.1.50
+export HUBITAT_URL=http://192.168.1.50    # if hubitat.local doesn't resolve
 ```
+
+That's the only configuration. There are no other env vars and no config file.
 
 ## CLI
 
@@ -96,6 +101,14 @@ Smallest pieces first, so it's easy to extend:
 - **`cli.mjs`** — thin command-line wrapper.
 
 To add a call: a new entry in `constants.mjs` + a method in `hubitat.mjs`.
+
+## Tests
+
+Zero dependencies, including for tests — runs on Node's built-in test runner with an injected fake transport (no network needed):
+
+```bash
+node --test     # or: npm test
+```
 
 ## Caveats
 
